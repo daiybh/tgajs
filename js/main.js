@@ -1,7 +1,16 @@
 (function () {
   var canvas = document.getElementById("canvas");
   var ctx = canvas.getContext("2d");
+  var rgbColor = document.getElementById("rgbColor");
   initCanvas();
+  canvas.addEventListener("mousemove", function (event) {
+    const mouseX = event.clientX - canvas.offsetLeft;
+    const mouseY = event.clientY - canvas.offsetTop;  
+    const pixelData = ctx.getImageData(mouseX, mouseY, 1, 1).data;
+    const color = `rgba(${pixelData[0]}, ${pixelData[1]}, ${pixelData[2]}, ${pixelData[3] })`;
+    rgbColor.textContent = color;
+  })
+
   var menu = {testfile: "", filename: "", backgroundColor: "#eeeeee", scale: 1};
   var filenameController, scaleController, bgController;
   var guiHeader, guiFooter;
